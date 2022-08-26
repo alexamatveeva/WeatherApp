@@ -70,7 +70,8 @@ extension WeatherViewController {
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureLabel.font = UIFont.systemFont(ofSize: 80, weight: .bold)
         temperatureLabel.textAlignment = .right
-        temperatureLabel.text = "12°C"
+        //temperatureLabel.text = "12°C"
+        temperatureLabel.attributedText = makeTemperatureText(with: "21")
         
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -118,6 +119,23 @@ extension WeatherViewController {
             
         ])
         
+    }
+}
+
+extension WeatherViewController {
+    private func makeTemperatureText(with temperature: String) -> NSAttributedString {
+        
+        var boldTextAttributes = [NSAttributedString.Key: AnyObject]()
+        boldTextAttributes[.foregroundColor] = UIColor.label
+        boldTextAttributes[.font] = UIFont.boldSystemFont(ofSize: 100)
+        
+        var plainTextAttributes = [NSAttributedString.Key: AnyObject]()
+        plainTextAttributes[.font] = UIFont.systemFont(ofSize: 80)
+        
+        let text = NSMutableAttributedString(string: temperature, attributes: boldTextAttributes)
+        text.append(NSAttributedString(string: "°C", attributes: plainTextAttributes))
+        
+        return text
     }
 }
 
